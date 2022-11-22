@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.Collections;
+import java.util.Comparator;
 File HighScoreFile;
 String textString = "";
 Food apple;
@@ -29,9 +30,9 @@ void setup() {
       if (HighScores.size() < 5) {
         HighScores.add (hs);
       } else {
-        Collections.sort(HighScores);
-        if (hs.compareTo( HighScores.get(0))>= 0) {
-          HighScores.set(0, hs);
+        Collections.sort(HighScores,Collections.reverseOrder() );
+        if (hs.compareTo( HighScores.get(HighScores.size()-1))>= 0) {
+          HighScores.set(HighScores.size()-1, hs);
         }
         Collections.sort(HighScores, Collections.reverseOrder());
       }
@@ -88,11 +89,12 @@ void keyPressed() {
         textInput =false;
         HS hs = new HS (textString, score);
         
-         Collections.sort(HighScores);
-        if (hs.compareTo( HighScores.get(0))>= 0) {
-          HighScores.set(0, hs);
+         Collections.sort(HighScores ,Collections.reverseOrder());
+        if (hs.compareTo( HighScores.get (HighScores.size()-1))>= 0) {
+          HighScores.set(HighScores.size()-1, hs);
         }
         Collections.sort(HighScores, Collections.reverseOrder());
+        
         try {
           FileWriter w = new FileWriter("HSF.txt");
           w.write(score + ","  + textString);
